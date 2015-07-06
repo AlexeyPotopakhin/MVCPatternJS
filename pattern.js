@@ -39,9 +39,11 @@ $(document).ready(function() {
 
     Controller.prototype.setEvents = function(controller) {
         for(var id in controller.clickHandlers) {
-            $(id).click(function() {
-                controller[controller.clickHandlers[id]]();
-            });
+            if(controller.clickHandlers.hasOwnProperty(id)) {
+                $(id).click({keyId:id}, function(eventObject) {
+                    controller[controller.clickHandlers[eventObject.data.keyId]]();
+                });
+            }
         }
     };
 
